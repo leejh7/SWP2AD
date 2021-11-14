@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>kookmin_background.jpg</file>
+    <file>backword.jpg</file>
+  </qresource>
+</RCC>
