@@ -66,7 +66,7 @@ background-color: rgb(0, 180, 220);</string>
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
+  <widget class="QLabel" name="imageLabel">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -87,10 +87,21 @@ background-color: rgb(85, 255, 255);</string>
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
+  <widget class="QListWidget" name="listWidget">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>260</y>
+     <width>256</width>
+     <height>192</height>
+    </rect>
+   </property>
+  </widget>
   <zorder>label</zorder>
   <zorder>label_2</zorder>
   <zorder>additemButton</zorder>
-  <zorder>label_3</zorder>
+  <zorder>imageLabel</zorder>
+  <zorder>listWidget</zorder>
  </widget>
  <resources>
   <include location="test.qrc"/>

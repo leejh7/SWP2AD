@@ -24,9 +24,9 @@ class TodolistUI_Dialog(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.additemButton = QtWidgets.QPushButton(Dialog)
-        self.additemButton.setGeometry(QtCore.QRect(290, 490, 80, 80))
+        self.additemButton.setGeometry(QtCore.QRect(290, 490, 60, 60))
         self.additemButton.setStyleSheet("border: 2px;\n"
-                                         "border-radius: 40px;\n"
+                                         "border-radius: 30px;\n"
                                          "background-color: rgb(0, 180, 220);")
         self.additemButton.setText("")
         self.additemButton.setObjectName("additemButton")
@@ -35,17 +35,21 @@ class TodolistUI_Dialog(object):
         self.label_2.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.label_2.setText("")
         self.label_2.setObjectName("label_2")
-        self.label_3 = QtWidgets.QLabel(Dialog)
-        self.label_3.setGeometry(QtCore.QRect(20, 50, 90, 90))
-        self.label_3.setStyleSheet("border: 2px;\n"
-                                   "border-radius: 40px;\n"
-                                   "background-color: rgb(85, 255, 255);")
-        self.label_3.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_3.setObjectName("label_3")
+        self.imageLabel = QtWidgets.QLabel(Dialog)
+        self.imageLabel.setGeometry(QtCore.QRect(20, 50, 90, 90))
+        self.imageLabel.setStyleSheet("border: 2px;\n"
+                                      "border-radius: 40px;\n"
+                                      "background-color: rgb(85, 255, 255);")
+        self.imageLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.imageLabel.setObjectName("imageLabel")
+        self.listWidget = QtWidgets.QListWidget(Dialog)
+        self.listWidget.setGeometry(QtCore.QRect(70, 260, 256, 192))
+        self.listWidget.setObjectName("listWidget")
         self.label.raise_()
         self.label_2.raise_()
         self.additemButton.raise_()
-        self.label_3.raise_()
+        self.imageLabel.raise_()
+        self.listWidget.raise_()
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -53,4 +57,4 @@ class TodolistUI_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.label_3.setText(_translate("Dialog", "TextLabel"))
+        self.imageLabel.setText(_translate("Dialog", "TextLabel"))
