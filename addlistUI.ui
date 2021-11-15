@@ -22,6 +22,11 @@
      <height>600</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <stylestrategy>PreferDefault</stylestrategy>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgba(0, 90, 145, 200);</string>
    </property>
@@ -66,13 +71,14 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgba(0, 90, 145, 0);</string>
+    <string notr="true">background-color: rgba(0, 90, 145, 0);
+border-image: url(:/newPrefix/backarrow.png);</string>
    </property>
    <property name="text">
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_4">
+  <widget class="QLabel" name="workimageLabel">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -93,7 +99,7 @@ background-color: rgb(85, 255, 255);</string>
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="processComboBox">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -102,61 +108,48 @@ background-color: rgb(85, 255, 255);</string>
      <height>40</height>
     </rect>
    </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgba(0, 90, 145, 0);
-border:none;
-border-bottom: 1px solid rgba(255, 255, 255, 200);
-color: rgba(255, 255, 255, 255);
-padding-bottom:7px;</string>
+   <property name="font">
+    <font>
+     <family>나눔고딕</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
    </property>
-   <property name="currentIndex">
-    <number>-1</number>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>270</y>
-     <width>340</width>
-     <height>40</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgba(0, 90, 145, 0);
-border:none;
-border-bottom: 1px solid rgba(255, 255, 255, 80);
-color: rgba(255, 255, 255, 240);
-padding-bottom:7px;</string>
-   </property>
-   <property name="text">
+   <property name="accessibleName">
     <string/>
    </property>
-   <property name="placeholderText">
-    <string>Work</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>340</y>
-     <width>340</width>
-     <height>40</height>
-    </rect>
-   </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgba(0, 90, 145, 0);
 border:none;
 border-bottom: 1px solid rgba(255, 255, 255, 80);
-color: rgba(255, 255, 255, 240);
-padding-bottom:7px;</string>
+color: rgba(255, 255, 255, 255);
+padding-bottom:7px;
+selection-color: rgb(255, 255, 255);
+selection-background-color: rgb(0, 0, 0);
+gridline-color: rgb(255, 255, 255);</string>
    </property>
-   <property name="placeholderText">
-    <string>Time</string>
+   <property name="currentIndex">
+    <number>0</number>
    </property>
+   <property name="iconSize">
+    <size>
+     <width>12</width>
+     <height>12</height>
+    </size>
+   </property>
+   <item>
+    <property name="text">
+     <string>TO DO</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>IN PROGRESS</string>
+    </property>
+   </item>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_3">
+  <widget class="QLineEdit" name="detailsLineEdit">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -165,6 +158,12 @@ padding-bottom:7px;</string>
      <height>40</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>나눔고딕</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgba(0, 90, 145, 0);
 border:none;
@@ -173,7 +172,7 @@ color: rgba(255, 255, 255, 240);
 padding-bottom:7px;</string>
    </property>
    <property name="placeholderText">
-    <string>Notification</string>
+    <string>Details</string>
    </property>
   </widget>
   <widget class="QPushButton" name="completeadditemButton">
@@ -200,15 +199,126 @@ color: rgba(255, 255, 255, 255);</string>
     <string>ADD YOUR THING</string>
    </property>
   </widget>
+  <widget class="QComboBox" name="worktypeComboBox">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>270</y>
+     <width>340</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>나눔고딕</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="accessibleName">
+    <string/>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgba(0, 90, 145, 0);
+border:none;
+border-bottom: 1px solid rgba(255, 255, 255, 80);
+color: rgba(255, 255, 255, 255);
+padding-bottom:7px;
+selection-color: rgb(255, 255, 255);
+selection-background-color: rgb(0, 0, 0);
+gridline-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <item>
+    <property name="text">
+     <string>Study</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Cleaning</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Exercise</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Rest</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Reading</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="importanceComboBox">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>340</y>
+     <width>340</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>나눔고딕</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="cursor">
+    <cursorShape>ArrowCursor</cursorShape>
+   </property>
+   <property name="accessibleName">
+    <string/>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgba(0, 90, 145, 0);
+border:none;
+border-bottom: 1px solid rgba(255, 255, 255, 80);
+color: rgba(255, 255, 255, 255);
+padding-bottom:7px;
+selection-color: rgb(255, 255, 255);
+selection-background-color: rgb(0, 0, 0);
+gridline-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <item>
+    <property name="text">
+     <string>Major</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Normal</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Minor</string>
+    </property>
+   </item>
+  </widget>
  </widget>
  <tabstops>
-  <tabstop>comboBox</tabstop>
-  <tabstop>lineEdit</tabstop>
-  <tabstop>lineEdit_2</tabstop>
-  <tabstop>lineEdit_3</tabstop>
+  <tabstop>processComboBox</tabstop>
+  <tabstop>detailsLineEdit</tabstop>
   <tabstop>completeadditemButton</tabstop>
   <tabstop>gobackButton</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="test.qrc"/>
+ </resources>
  <connections/>
 </ui>

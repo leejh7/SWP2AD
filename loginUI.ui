@@ -91,7 +91,7 @@
     <string>Sign In</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="unameLineEdit">
+  <widget class="QLineEdit" name="emailLineEdit">
    <property name="geometry">
     <rect>
      <x>280</x>

@@ -93,8 +93,9 @@ class CreateAccUI_Dialog(object):
         self.agreeCheckBox.setFont(font)
         self.agreeCheckBox.setObjectName("agreeCheckBox")
         self.gobackButton = QtWidgets.QPushButton(Dialog)
-        self.gobackButton.setGeometry(QtCore.QRect(20, 30, 31, 41))
-        self.gobackButton.setStyleSheet("border-image: url(:/newPrefix/backword.jpg);\n"
+        self.gobackButton.setGeometry(QtCore.QRect(30, 30, 30, 30))
+        self.gobackButton.setStyleSheet("border-image: url(:/newPrefix/backarrow.png);\n"
+                                        "background-color: rgb(248, 248, 248);\n"
                                         "")
         self.gobackButton.setText("")
         self.gobackButton.setObjectName("gobackButton")

@@ -42,7 +42,7 @@ class LoginApp(QDialog, LoginUI_Dialog):
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def login(self):
-        email = self.unameLineEdit.text()
+        email = self.emailLineEdit.text()
         password = self.pwLineEdit.text()
         try:
             login = auth.sign_in_with_email_and_password(email, password)
@@ -61,6 +61,8 @@ class CreateAcc(QDialog, CreateAccUI_Dialog):
     def __init__(self):
         super(CreateAcc, self).__init__()
         self.setupUi(self)
+        self.pwLineEdit.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.confirmpwLineEdit.setEchoMode(QtWidgets.QLineEdit.Password)
         self.loadButton.clicked.connect(self.loadImage)
         self.gobackButton.clicked.connect(self.goBack)
         self.signupButton.clicked.connect(self.signUp)

@@ -18,6 +18,9 @@ class AddListUI_Dialog(object):
         Dialog.resize(400, 600)
         self.label = QtWidgets.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(0, 0, 400, 600))
+        font = QtGui.QFont()
+        font.setStyleStrategy(QtGui.QFont.PreferDefault)
+        self.label.setFont(font)
         self.label.setStyleSheet("background-color: rgba(0, 90, 145, 200);")
         self.label.setText("")
         self.label.setObjectName("label")
@@ -34,51 +37,50 @@ class AddListUI_Dialog(object):
         self.label_2.setObjectName("label_2")
         self.gobackButton = QtWidgets.QPushButton(Dialog)
         self.gobackButton.setGeometry(QtCore.QRect(20, 20, 30, 30))
-        self.gobackButton.setStyleSheet(
-            "background-color: rgba(0, 90, 145, 0);")
+        self.gobackButton.setStyleSheet("background-color: rgba(0, 90, 145, 0);\n"
+                                        "border-image: url(:/newPrefix/backarrow.png);")
         self.gobackButton.setText("")
         self.gobackButton.setObjectName("gobackButton")
-        self.label_4 = QtWidgets.QLabel(Dialog)
-        self.label_4.setGeometry(QtCore.QRect(160, 80, 80, 80))
-        self.label_4.setStyleSheet("border: 2px;\n"
-                                   "border-radius: 40px;\n"
-                                   "background-color: rgb(85, 255, 255);")
-        self.label_4.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_4.setObjectName("label_4")
-        self.comboBox = QtWidgets.QComboBox(Dialog)
-        self.comboBox.setGeometry(QtCore.QRect(30, 200, 340, 40))
-        self.comboBox.setStyleSheet("background-color: rgba(0, 0, 0, 0);\n"
-                                    "border:none;\n"
-                                    "border-bottom: 1px solid rgba(255, 255, 255, 200);\n"
-                                    "color: rgba(255, 255, 255, 255);\n"
-                                    "padding-bottom:7px;")
-        self.comboBox.setCurrentText("")
-        self.comboBox.setObjectName("comboBox")
-        self.lineEdit = QtWidgets.QLineEdit(Dialog)
-        self.lineEdit.setGeometry(QtCore.QRect(30, 270, 340, 40))
-        self.lineEdit.setStyleSheet("background-color: rgba(0, 90, 145, 0);\n"
-                                    "border:none;\n"
-                                    "border-bottom: 1px solid rgba(255, 255, 255, 80);\n"
-                                    "color: rgba(255, 255, 255, 240);\n"
-                                    "padding-bottom:7px;")
-        self.lineEdit.setText("")
-        self.lineEdit.setObjectName("lineEdit")
-        self.lineEdit_2 = QtWidgets.QLineEdit(Dialog)
-        self.lineEdit_2.setGeometry(QtCore.QRect(30, 340, 340, 40))
-        self.lineEdit_2.setStyleSheet("background-color: rgba(0, 90, 145, 0);\n"
-                                      "border:none;\n"
-                                      "border-bottom: 1px solid rgba(255, 255, 255, 80);\n"
-                                      "color: rgba(255, 255, 255, 240);\n"
-                                      "padding-bottom:7px;")
-        self.lineEdit_2.setObjectName("lineEdit_2")
-        self.lineEdit_3 = QtWidgets.QLineEdit(Dialog)
-        self.lineEdit_3.setGeometry(QtCore.QRect(30, 410, 340, 40))
-        self.lineEdit_3.setStyleSheet("background-color: rgba(0, 90, 145, 0);\n"
-                                      "border:none;\n"
-                                      "border-bottom: 1px solid rgba(255, 255, 255, 80);\n"
-                                      "color: rgba(255, 255, 255, 240);\n"
-                                      "padding-bottom:7px;")
-        self.lineEdit_3.setObjectName("lineEdit_3")
+        self.workimageLabel = QtWidgets.QLabel(Dialog)
+        self.workimageLabel.setGeometry(QtCore.QRect(160, 80, 80, 80))
+        self.workimageLabel.setStyleSheet("border: 2px;\n"
+                                          "border-radius: 40px;\n"
+                                          "background-color: rgb(85, 255, 255);")
+        self.workimageLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.workimageLabel.setObjectName("workimageLabel")
+        self.processComboBox = QtWidgets.QComboBox(Dialog)
+        self.processComboBox.setGeometry(QtCore.QRect(30, 200, 340, 40))
+        font = QtGui.QFont()
+        font.setFamily("나눔고딕")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.processComboBox.setFont(font)
+        self.processComboBox.setAccessibleName("")
+        self.processComboBox.setStyleSheet("background-color: rgba(0, 90, 145, 0);\n"
+                                           "border:none;\n"
+                                           "border-bottom: 1px solid rgba(255, 255, 255, 80);\n"
+                                           "color: rgba(255, 255, 255, 255);\n"
+                                           "padding-bottom:7px;\n"
+                                           "selection-color: rgb(255, 255, 255);\n"
+                                           "selection-background-color: rgb(0, 0, 0);\n"
+                                           "gridline-color: rgb(255, 255, 255);")
+        self.processComboBox.setIconSize(QtCore.QSize(12, 12))
+        self.processComboBox.setObjectName("processComboBox")
+        self.processComboBox.addItem("")
+        self.processComboBox.addItem("")
+        self.detailsLineEdit = QtWidgets.QLineEdit(Dialog)
+        self.detailsLineEdit.setGeometry(QtCore.QRect(30, 410, 340, 40))
+        font = QtGui.QFont()
+        font.setFamily("나눔고딕")
+        font.setPointSize(12)
+        self.detailsLineEdit.setFont(font)
+        self.detailsLineEdit.setStyleSheet("background-color: rgba(0, 90, 145, 0);\n"
+                                           "border:none;\n"
+                                           "border-bottom: 1px solid rgba(255, 255, 255, 80);\n"
+                                           "color: rgba(255, 255, 255, 240);\n"
+                                           "padding-bottom:7px;")
+        self.detailsLineEdit.setObjectName("detailsLineEdit")
         self.completeadditemButton = QtWidgets.QPushButton(Dialog)
         self.completeadditemButton.setGeometry(QtCore.QRect(30, 500, 340, 40))
         font = QtGui.QFont()
@@ -89,18 +91,78 @@ class AddListUI_Dialog(object):
         self.completeadditemButton.setStyleSheet("background-color: rgb(0, 180, 220);\n"
                                                  "color: rgba(255, 255, 255, 255);")
         self.completeadditemButton.setObjectName("completeadditemButton")
+        self.worktypeComboBox = QtWidgets.QComboBox(Dialog)
+        self.worktypeComboBox.setGeometry(QtCore.QRect(30, 270, 340, 40))
+        font = QtGui.QFont()
+        font.setFamily("나눔고딕")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.worktypeComboBox.setFont(font)
+        self.worktypeComboBox.setAccessibleName("")
+        self.worktypeComboBox.setStyleSheet("background-color: rgba(0, 90, 145, 0);\n"
+                                            "border:none;\n"
+                                            "border-bottom: 1px solid rgba(255, 255, 255, 80);\n"
+                                            "color: rgba(255, 255, 255, 255);\n"
+                                            "padding-bottom:7px;\n"
+                                            "selection-color: rgb(255, 255, 255);\n"
+                                            "selection-background-color: rgb(0, 0, 0);\n"
+                                            "gridline-color: rgb(255, 255, 255);")
+        self.worktypeComboBox.setObjectName("worktypeComboBox")
+        self.worktypeComboBox.addItem("")
+        self.worktypeComboBox.addItem("")
+        self.worktypeComboBox.addItem("")
+        self.worktypeComboBox.addItem("")
+        self.worktypeComboBox.addItem("")
+        self.importanceComboBox = QtWidgets.QComboBox(Dialog)
+        self.importanceComboBox.setGeometry(QtCore.QRect(30, 340, 340, 40))
+        font = QtGui.QFont()
+        font.setFamily("나눔고딕")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.importanceComboBox.setFont(font)
+        self.importanceComboBox.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
+        self.importanceComboBox.setAccessibleName("")
+        self.importanceComboBox.setStyleSheet("background-color: rgba(0, 90, 145, 0);\n"
+                                              "border:none;\n"
+                                              "border-bottom: 1px solid rgba(255, 255, 255, 80);\n"
+                                              "color: rgba(255, 255, 255, 255);\n"
+                                              "padding-bottom:7px;\n"
+                                              "selection-color: rgb(255, 255, 255);\n"
+                                              "selection-background-color: rgb(0, 0, 0);\n"
+                                              "gridline-color: rgb(255, 255, 255);")
+        self.importanceComboBox.setObjectName("importanceComboBox")
+        self.importanceComboBox.addItem("")
+        self.importanceComboBox.addItem("")
+        self.importanceComboBox.addItem("")
 
         self.retranslateUi(Dialog)
+        self.processComboBox.setCurrentIndex(0)
+        self.worktypeComboBox.setCurrentIndex(0)
+        self.importanceComboBox.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
+        Dialog.setTabOrder(self.processComboBox, self.detailsLineEdit)
+        Dialog.setTabOrder(self.detailsLineEdit, self.completeadditemButton)
+        Dialog.setTabOrder(self.completeadditemButton, self.gobackButton)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.label_2.setText(_translate("Dialog", "Add new thing"))
-        self.label_4.setText(_translate("Dialog", "TextLabel"))
-        self.lineEdit.setPlaceholderText(_translate("Dialog", "Work"))
-        self.lineEdit_2.setPlaceholderText(_translate("Dialog", "Time"))
-        self.lineEdit_3.setPlaceholderText(
-            _translate("Dialog", "Notification"))
+        self.workimageLabel.setText(_translate("Dialog", "TextLabel"))
+        self.processComboBox.setItemText(0, _translate("Dialog", "TO DO"))
+        self.processComboBox.setItemText(
+            1, _translate("Dialog", "IN PROGRESS"))
+        self.detailsLineEdit.setPlaceholderText(
+            _translate("Dialog", "Details"))
         self.completeadditemButton.setText(
             _translate("Dialog", "ADD YOUR THING"))
+        self.worktypeComboBox.setItemText(0, _translate("Dialog", "Study"))
+        self.worktypeComboBox.setItemText(1, _translate("Dialog", "Cleaning"))
+        self.worktypeComboBox.setItemText(2, _translate("Dialog", "Exercise"))
+        self.worktypeComboBox.setItemText(3, _translate("Dialog", "Rest"))
+        self.worktypeComboBox.setItemText(4, _translate("Dialog", "Reading"))
+        self.importanceComboBox.setItemText(0, _translate("Dialog", "Major"))
+        self.importanceComboBox.setItemText(1, _translate("Dialog", "Normal"))
+        self.importanceComboBox.setItemText(2, _translate("Dialog", "Minor"))

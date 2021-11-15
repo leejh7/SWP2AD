@@ -1,7 +1,9 @@
 <RCC>
   <qresource prefix="newPrefix">
+    <file>backarrow.png</file>
+    <file>plusicon.png</file>
+    <file>power.png</file>
     <file>kookmin_background.jpg</file>
-    <file>sky_background.jpg</file>
-    <file>backword.jpg</file>
+    <file>minusicon.png</file>
   </qresource>
 </RCC>
