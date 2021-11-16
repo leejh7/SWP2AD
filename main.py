@@ -48,7 +48,8 @@ class LoginApp(QDialog, LoginUI_Dialog):
         try:
             login = auth.sign_in_with_email_and_password(email, password)
         except:
-            pass
+            print("Fail")
+            return
 
         global userID
         userID = email.split('@')[0]
@@ -100,7 +101,7 @@ class CreateAcc(QDialog, CreateAccUI_Dialog):
 
         # 프로필 이름과 이미지 명을 firebase realtime database에 저장
         data = {"name": self.unameLineEdit.text(), "image_path": self.fname[0]}
-        db.child(userID).child("profile").set(data)
+        db.child(userID).child("Profile").set(data)
 
         login = LoginApp()
         widget.addWidget(login)
@@ -112,6 +113,7 @@ class TodoList(QDialog, TodolistUI_Dialog):
         super(TodoList, self).__init__()
         self.setupUi(self)
         self.loadImage()
+        self.loadData()
         self.additemButton.clicked.connect(self.addItemList)
         widget.setFixedWidth(self.width())
         widget.setFixedHeight(self.height())
@@ -121,13 +123,30 @@ class TodoList(QDialog, TodolistUI_Dialog):
         widget.addWidget(addlist)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
+    def deleteItemList(self):
+        pass
+
     def loadImage(self):
         global userID
         image_path = db.child(userID).child(
-            "profile").child("image_path").get()
+            "Profile").child("image_path").get()
         self.pixmap = QPixmap(image_path.val()).scaled(
             80, 80, QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
         self.imageLabel.setPixmap(self.pixmap)
+
+    # 추가하고 삭제한 todo list data들 불러오기
+    def loadData(self):
+        global userID
+        todoData = db.child(userID).child("Todo_List").child("TO DO").get()
+        inprogressData = db.child(userID).child(
+            "Todo_List").child("IN PROGRESS").get()
+
+        if todoData.each():
+            for data in todoData.each():
+                print(data.val())
+        if inprogressData.each():
+            for data in inprogressData.each():
+                print(data.val())
 
 
 class AddList(QDialog, AddListUI_Dialog):
@@ -137,10 +156,13 @@ class AddList(QDialog, AddListUI_Dialog):
         self.setImage()  # 초기 workingimageLabel의 이미지 설정하는 메서드
         self.worktypeComboBox.currentIndexChanged.connect(self.setImage)
         self.gobackButton.clicked.connect(self.goBack)
+        self.completeadditemButton.setEnabled(False)
+        self.detailsLineEdit.textChanged.connect(self.checkDetail)
         self.completeadditemButton.clicked.connect(self.addList)
         widget.setFixedWidth(self.width())
         widget.setFixedHeight(self.height())
 
+    # work type에 따라 아이콘 변경해주는 메서드
     def setImage(self):
         workType = self.worktypeComboBox.currentText()
 
@@ -172,11 +194,26 @@ class AddList(QDialog, AddListUI_Dialog):
         widget.addWidget(todolist)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
+    # details 란에 아무것도 적지 않으면 add button 클릭 못하게하는 메서드
+    def checkDetail(self, detail):
+        if detail:
+            self.completeadditemButton.setEnabled(True)
+        else:
+            self.completeadditemButton.setEnabled(False)
+
+    # 작성한 todo List를 firebase에 저장하는 메서드
     def addList(self):
-        print(self.processComboBox.currentText())
-        print(self.worktypeComboBox.currentText())
-        print(self.importanceComboBox.currentText())
-        print(self.detailsLineEdit.text())
+        global userID
+        data = {
+            "importance": self.importanceComboBox.currentText(),
+            "details": self.detailsLineEdit.text()
+        }
+        db.child(userID).child("Todo_List").child(
+            self.processComboBox.currentText()).child(self.worktypeComboBox.currentText()).push(data)
+
+        todolist = TodoList()
+        widget.addWidget(todolist)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
 
 if __name__ == "__main__":
