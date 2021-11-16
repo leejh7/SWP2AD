@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'todolistUI.ui'
+# Form implementation generated from reading ui file './UI/todolistUI.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -52,7 +52,7 @@ class TodolistUI_Dialog(object):
         self.label_3.setGeometry(QtCore.QRect(90, 10, 121, 61))
         font = QtGui.QFont()
         font.setFamily("나눔고딕 ExtraBold")
-        font.setPointSize(16)
+        font.setPointSize(12)
         font.setBold(True)
         font.setWeight(75)
         self.label_3.setFont(font)
@@ -61,19 +61,19 @@ class TodolistUI_Dialog(object):
         self.label_4.setGeometry(QtCore.QRect(90, 320, 121, 41))
         font = QtGui.QFont()
         font.setFamily("나눔고딕 ExtraBold")
-        font.setPointSize(16)
+        font.setPointSize(12)
         font.setBold(True)
         font.setWeight(75)
         self.label_4.setFont(font)
         self.label_4.setStyleSheet("color: rgb(0, 0, 0);")
         self.label_4.setObjectName("label_4")
         self.todoListWidget = QtWidgets.QListWidget(Dialog)
-        self.todoListWidget.setGeometry(QtCore.QRect(90, 80, 301, 211))
+        self.todoListWidget.setGeometry(QtCore.QRect(90, 60, 301, 221))
         self.todoListWidget.setStyleSheet(
             "background-color: rgb(233, 237, 241);")
         self.todoListWidget.setObjectName("todoListWidget")
         self.inprogressListWidget = QtWidgets.QListWidget(Dialog)
-        self.inprogressListWidget.setGeometry(QtCore.QRect(90, 380, 301, 211))
+        self.inprogressListWidget.setGeometry(QtCore.QRect(90, 360, 301, 221))
         self.inprogressListWidget.setStyleSheet(
             "background-color: rgb(233, 237, 241);")
         self.inprogressListWidget.setObjectName("inprogressListWidget")

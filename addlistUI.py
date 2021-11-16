@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'addlistUI.ui'
+# Form implementation generated from reading ui file './UI/addlistUI.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -43,9 +43,9 @@ class AddListUI_Dialog(object):
         self.gobackButton.setObjectName("gobackButton")
         self.workimageLabel = QtWidgets.QLabel(Dialog)
         self.workimageLabel.setGeometry(QtCore.QRect(160, 80, 80, 80))
-        self.workimageLabel.setStyleSheet("border: 2px;\n"
+        self.workimageLabel.setStyleSheet("\n"
                                           "border-radius: 40px;\n"
-                                          "background-color: rgb(85, 255, 255);")
+                                          "")
         self.workimageLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.workimageLabel.setObjectName("workimageLabel")
         self.processComboBox = QtWidgets.QComboBox(Dialog)

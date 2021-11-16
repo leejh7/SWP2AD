@@ -120,7 +120,7 @@
    <property name="font">
     <font>
      <family>나눔고딕 ExtraBold</family>
-     <pointsize>16</pointsize>
+     <pointsize>12</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
@@ -141,7 +141,7 @@
    <property name="font">
     <font>
      <family>나눔고딕 ExtraBold</family>
-     <pointsize>16</pointsize>
+     <pointsize>12</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
@@ -157,9 +157,9 @@
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>80</y>
+     <y>60</y>
      <width>301</width>
-     <height>211</height>
+     <height>221</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -170,9 +170,9 @@
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>380</y>
+     <y>360</y>
      <width>301</width>
-     <height>211</height>
+     <height>221</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -187,8 +187,6 @@
   <tabstop>deleteitemButton</tabstop>
   <tabstop>turnoffButton</tabstop>
  </tabstops>
- <resources>
-  <include location="test.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

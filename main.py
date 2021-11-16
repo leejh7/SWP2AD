@@ -1,6 +1,7 @@
 import sys
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
+from PyQt5 import QtGui
 from PyQt5.QtWidgets import QDialog, QApplication, QFileDialog, QWidget
 from PyQt5.QtGui import QPixmap
 from loginUI import LoginUI_Dialog
@@ -133,14 +134,49 @@ class AddList(QDialog, AddListUI_Dialog):
     def __init__(self):
         super(AddList, self).__init__()
         self.setupUi(self)
+        self.setImage()  # 초기 workingimageLabel의 이미지 설정하는 메서드
+        self.worktypeComboBox.currentIndexChanged.connect(self.setImage)
         self.gobackButton.clicked.connect(self.goBack)
+        self.completeadditemButton.clicked.connect(self.addList)
         widget.setFixedWidth(self.width())
         widget.setFixedHeight(self.height())
+
+    def setImage(self):
+        workType = self.worktypeComboBox.currentText()
+
+        if workType == "Study":
+            image_path = f"{pathlib.Path()}\\pictures\\studyicon.png"
+        elif workType == "Cleaning":
+            image_path = f"{pathlib.Path()}\\pictures\\cleaningicon.png"
+        elif workType == "Rest":
+            image_path = f"{pathlib.Path()}\\pictures\\resticon.png"
+        elif workType == "Exercise":
+            image_path = f"{pathlib.Path()}\\pictures\\exerciseicon.png"
+        else:
+            image_path = f"{pathlib.Path()}\\pictures\\readingicon.png"
+
+        source = QPixmap(image_path).scaled(80, 80)
+        self.pixmap = QPixmap(image_path).scaled(
+            80, 80)
+        self.pixmap.fill(QtCore.Qt.transparent)
+        qp = QtGui.QPainter(self.pixmap)
+        clipPath = QtGui.QPainterPath()
+        clipPath.addRoundedRect(QtCore.QRectF(source.rect()), 40, 40)
+        qp.setClipPath(clipPath)
+        qp.drawPixmap(0, 0, source)
+        qp.end()
+        self.workimageLabel.setPixmap(self.pixmap)
 
     def goBack(self):
         todolist = TodoList()
         widget.addWidget(todolist)
         widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def addList(self):
+        print(self.processComboBox.currentText())
+        print(self.worktypeComboBox.currentText())
+        print(self.importanceComboBox.currentText())
+        print(self.detailsLineEdit.text())
 
 
 if __name__ == "__main__":
