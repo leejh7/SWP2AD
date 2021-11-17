@@ -2,7 +2,7 @@ import sys
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 from PyQt5 import QtGui
-from PyQt5.QtWidgets import QDialog, QApplication, QFileDialog, QWidget
+from PyQt5.QtWidgets import QDialog, QApplication, QFileDialog, QListWidgetItem, QMessageBox
 from PyQt5.QtGui import QPixmap
 from loginUI import LoginUI_Dialog
 from createaccUI import CreateAccUI_Dialog
@@ -48,7 +48,8 @@ class LoginApp(QDialog, LoginUI_Dialog):
         try:
             login = auth.sign_in_with_email_and_password(email, password)
         except:
-            print("Fail")
+            QMessageBox.warning(
+                self, 'Wrong', 'Incorrect username or password')
             return
 
         global userID
@@ -67,6 +68,8 @@ class CreateAcc(QDialog, CreateAccUI_Dialog):
         self.confirmpwLineEdit.setEchoMode(QtWidgets.QLineEdit.Password)
         self.loadButton.clicked.connect(self.loadImage)
         self.gobackButton.clicked.connect(self.goBack)
+        self.signupButton.setEnabled(False)
+        self.agreeCheckBox.stateChanged.connect(self.checkAll)
         self.signupButton.clicked.connect(self.signUp)
         widget.setFixedWidth(self.width())
         widget.setFixedHeight(self.height())
@@ -84,10 +87,20 @@ class CreateAcc(QDialog, CreateAccUI_Dialog):
         widget.addWidget(login)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
+    def checkAll(self):
+        if self.unameLineEdit.text() and self.emailLineEdit.text() and self.pwLineEdit.text() == self.confirmpwLineEdit.text() and self.agreeCheckBox.isChecked():
+            self.signupButton.setEnabled(True)
+        else:
+            self.signupButton.setEnabled(False)
+
     # 가입 작성을 완료한 후 처리될 기능들의 메서드
     def signUp(self):
         email = self.emailLineEdit.text()
         password = self.pwLineEdit.text()
+        if len(password) <= 6:
+            QMessageBox.warning(self, 'Check Your Password',
+                                'Password is too short')
+            return
         try:
             user = auth.create_user_with_email_and_password(email, password)
         except:
@@ -113,10 +126,18 @@ class TodoList(QDialog, TodolistUI_Dialog):
         super(TodoList, self).__init__()
         self.setupUi(self)
         self.loadImage()
-        self.loadData()
+        self.loadList()
         self.additemButton.clicked.connect(self.addItemList)
+        self.deleteitemButton.clicked.connect(self.deleteItemList)
+        self.turnoffButton.clicked.connect(self.turnOffItem)
+        self.changeitemButton.clicked.connect(self.changeItemList)
         widget.setFixedWidth(self.width())
         widget.setFixedHeight(self.height())
+
+    def turnOffItem(self):
+        login = LoginApp()
+        widget.addWidget(login)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def addItemList(self):
         addlist = AddList()
@@ -124,7 +145,126 @@ class TodoList(QDialog, TodolistUI_Dialog):
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def deleteItemList(self):
-        pass
+        global userID
+        todoListWidget = self.todoListWidget
+        todoListItems = []
+        for i in range(todoListWidget.count()):
+            todoListItems.append(todoListWidget.item(i))
+        delTodoItems = []
+        for item in todoListItems:
+            if item.checkState() != 0:
+                delTodoItems.append(item)
+        # print(delTodoItems)
+        for item in delTodoItems:
+            # print(item.text().split(" "))
+            item_list = item.text().split(" / ")
+            # print(item_list)
+            self.todoListWidget.takeItem(self.todoListWidget.row(item))
+            del_item = db.child(userID).child("Todo_List").child(
+                "TO DO").child(item_list[0]).get()
+            # print(del_item.val())
+            for idx, dict in del_item.val().items():
+                del_idx = idx
+                for key, val in dict.items():
+                    if (key == 'details' and val == item_list[-1]):
+                        db.child(userID).child("Todo_List").child(
+                            "TO DO").child(item_list[0]).child(del_idx).remove()
+
+        progListWidget = self.inprogressListWidget
+        progListItems = []
+        for i in range(progListWidget.count()):
+            progListItems.append(progListWidget.item(i))
+        delProgItems = []
+        for item in progListItems:
+            if item.checkState() != 0:
+                delProgItems.append(item)
+        # print(delProgItems)
+        for item in delProgItems:
+            # print(item.text())
+            item_list = item.text().split(" / ")
+            self.inprogressListWidget.takeItem(
+                self.inprogressListWidget.row(item))
+            del_item = db.child(userID).child("Todo_List").child(
+                "IN PROGRESS").child(item_list[0]).get()
+            # print(del_item.val())
+            for idx, dict in del_item.val().items():
+                del_idx = idx
+                for key, val in dict.items():
+                    if (key == 'details' and val == item_list[-1]):
+                        db.child(userID).child("Todo_List").child(
+                            "IN PROGRESS").child(item_list[0]).child(del_idx).remove()
+
+    def changeItemList(self):
+        global userID
+
+        todoListWidget = self.todoListWidget
+        todoListItems = []
+        for i in range(todoListWidget.count()):
+            todoListItems.append(todoListWidget.item(i))
+        changeTodoItems = []
+        for item in todoListItems:
+            if item.checkState() != 0:
+                changeTodoItems.append(item)
+
+        progListWidget = self.inprogressListWidget
+        progListItems = []
+        for i in range(progListWidget.count()):
+            progListItems.append(progListWidget.item(i))
+        changeProgItems = []
+        for item in progListItems:
+            if item.checkState() != 0:
+                changeProgItems.append(item)
+
+        for item in changeTodoItems:
+            self.todoListWidget.takeItem(self.todoListWidget.row(item))
+            self.inprogressListWidget.addItem(item)
+            item.setCheckState(QtCore.Qt.Unchecked)
+
+            item_list = item.text().split(" / ")
+            # print(item_list)
+            del_item = db.child(userID).child("Todo_List").child(
+                "TO DO").child(item_list[0]).get()
+            # print(del_item.val())
+            for idx, dict in del_item.val().items():
+                del_idx = idx
+                for key, val in dict.items():
+                    if (key == 'details' and val == item_list[-1]):
+                        db.child(userID).child("Todo_List").child(
+                            "TO DO").child(item_list[0]).child(del_idx).remove()
+                        item_list[1].lstrip("[")
+                        item_list[1].rstrip("]")
+                        data = {
+                            "importance": item_list[1],
+                            "details": item_list[-1]
+                        }
+                        db.child(userID).child("Todo_List").child(
+                            "IN PROGRESS").child(item_list[0]).push(data)
+
+        for item in changeProgItems:
+            self.inprogressListWidget.takeItem(
+                self.inprogressListWidget.row(item))
+            self.todoListWidget.addItem(item)
+            item.setCheckState(QtCore.Qt.Unchecked)
+
+            item_list = item.text().split(" / ")
+            # print(item_list)
+            del_item = db.child(userID).child("Todo_List").child(
+                "IN PROGRESS").child(item_list[0]).get()
+            # print(del_item.val())
+            for idx, dict in del_item.val().items():
+                del_idx = idx
+                for key, val in dict.items():
+                    if (key == 'details' and val == item_list[-1]):
+                        db.child(userID).child("Todo_List").child(
+                            "IN PROGRESS").child(item_list[0]).child(del_idx).remove()
+                        item_list[1].lstrip("[")
+                        item_list[1].rstrip("]")
+                        data = {
+                            "importance": item_list[1],
+                            "details": item_list[-1]
+                        }
+                        db.child(userID).child("Todo_List").child(
+                            "TO DO").child(item_list[0]).push(data)
 
     def loadImage(self):
         global userID
@@ -135,7 +275,7 @@ class TodoList(QDialog, TodolistUI_Dialog):
         self.imageLabel.setPixmap(self.pixmap)
 
     # 추가하고 삭제한 todo list data들 불러오기
-    def loadData(self):
+    def loadList(self):
         global userID
         todoData = db.child(userID).child("Todo_List").child("TO DO").get()
         inprogressData = db.child(userID).child(
@@ -143,10 +283,39 @@ class TodoList(QDialog, TodolistUI_Dialog):
 
         if todoData.each():
             for data in todoData.each():
-                print(data.val())
+                item = db.child(userID).child("Todo_List").child(
+                    "TO DO").child(data.key()).get()
+                for idx, dict in item.val().items():
+                    list_item = QListWidgetItem()
+                    for key, val in dict.items():
+                        if (key == 'importance'):
+                            import_item = ("[" + val + "]" + " ")
+                        else:
+                            detail_item = (val)
+                    list_item.setText(data.key() + " / " +
+                                      import_item + " / " + detail_item)
+                    list_item.setFlags(list_item.flags() |
+                                       QtCore.Qt.ItemIsUserCheckable)
+                    list_item.setCheckState(QtCore.Qt.Unchecked)
+                    self.todoListWidget.addItem(list_item)
+
         if inprogressData.each():
             for data in inprogressData.each():
-                print(data.val())
+                item = db.child(userID).child("Todo_List").child(
+                    "IN PROGRESS").child(data.key()).get()
+                for idx, dict in item.val().items():
+                    list_item = QListWidgetItem()
+                    for key, val in dict.items():
+                        if (key == 'importance'):
+                            import_item = ("[" + val + "]" + " ")
+                        else:
+                            detail_item = (val)
+                    list_item.setText(data.key() + " / " +
+                                      import_item + " / " + detail_item)
+                    list_item.setFlags(list_item.flags() |
+                                       QtCore.Qt.ItemIsUserCheckable)
+                    list_item.setCheckState(QtCore.Qt.Unchecked)
+                    self.inprogressListWidget.addItem(list_item)
 
 
 class AddList(QDialog, AddListUI_Dialog):
