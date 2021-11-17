@@ -134,7 +134,7 @@ class TodoList(QDialog, TodolistUI_Dialog):
             if item.checkState() != 0:
                 delTodoItems.append(item)
         for item in delTodoItems:
-                self.todoListWidget.takeItem(self.todoListWidget.row(item))
+            self.todoListWidget.takeItem(self.todoListWidget.row(item))
 
         progListWidget = self.inprogressListWidget
         progListItems = []
@@ -145,7 +145,8 @@ class TodoList(QDialog, TodolistUI_Dialog):
             if item.checkState() != 0:
                 delProgItems.append(item)
         for item in delProgItems:
-                self.inprogressListWidget.takeItem(self.inprogressListWidget.row(item))
+            self.inprogressListWidget.takeItem(
+                self.inprogressListWidget.row(item))
 
     def loadImage(self):
         global userID
@@ -164,31 +165,35 @@ class TodoList(QDialog, TodolistUI_Dialog):
 
         if todoData.each():
             for data in todoData.each():
-                item = db.child(userID).child("Todo_List").child("TO DO").child(data.key()).get()
+                item = db.child(userID).child("Todo_List").child(
+                    "TO DO").child(data.key()).get()
                 for idx, dict in item.val().items():
                     list_item = QListWidgetItem()
                     for key, val in dict.items():
                         if (key == 'importance'):
                             import_item = ("[" + val + "]" + " ")
-                        else: 
+                        else:
                             detail_item = (val + " ")
                     list_item.setText(import_item + " " + detail_item)
-                    list_item.setFlags(list_item.flags() | QtCore.Qt.ItemIsUserCheckable)
+                    list_item.setFlags(list_item.flags() |
+                                       QtCore.Qt.ItemIsUserCheckable)
                     list_item.setCheckState(QtCore.Qt.Unchecked)
                     self.todoListWidget.addItem(list_item)
-        
+
         if inprogressData.each():
             for data in inprogressData.each():
-                item = db.child(userID).child("Todo_List").child("IN PROGRESS").child(data.key()).get()
+                item = db.child(userID).child("Todo_List").child(
+                    "IN PROGRESS").child(data.key()).get()
                 for idx, dict in item.val().items():
                     list_item = QListWidgetItem()
                     for key, val in dict.items():
                         if (key == 'importance'):
                             import_item = ("[" + val + "]" + " ")
-                        else: 
+                        else:
                             detail_item = (val + " ")
                     list_item.setText(import_item + " " + detail_item)
-                    list_item.setFlags(list_item.flags() | QtCore.Qt.ItemIsUserCheckable)
+                    list_item.setFlags(list_item.flags() |
+                                       QtCore.Qt.ItemIsUserCheckable)
                     list_item.setCheckState(QtCore.Qt.Unchecked)
                     self.inprogressListWidget.addItem(list_item)
 

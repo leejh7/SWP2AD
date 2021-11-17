@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file './UI/todolistUI.ui'
+# Form implementation generated from reading ui file 'todolistUI.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -77,6 +77,12 @@ class TodolistUI_Dialog(object):
         self.inprogressListWidget.setStyleSheet(
             "background-color: rgb(233, 237, 241);")
         self.inprogressListWidget.setObjectName("inprogressListWidget")
+        self.changeitemButton = QtWidgets.QPushButton(Dialog)
+        self.changeitemButton.setGeometry(QtCore.QRect(0, 240, 80, 80))
+        self.changeitemButton.setStyleSheet(
+            "border-image: url(:/newPrefix/changeicon.png);")
+        self.changeitemButton.setText("")
+        self.changeitemButton.setObjectName("changeitemButton")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
